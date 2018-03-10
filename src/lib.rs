@@ -39,6 +39,7 @@ macro_rules! lang {
             }
         }
 
+        #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
         pub struct $KEY;
         impl Text for $KEY {
             $($(
@@ -46,6 +47,7 @@ macro_rules! lang {
             )+)+
         }
         $(
+            #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
             pub struct $KEY2;
             impl Text for $KEY2 {
                 $($(
