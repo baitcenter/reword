@@ -30,7 +30,7 @@ macro_rules! lang {
         }
         impl Lang {
             #[inline]
-            pub fn to_str<T: Text>(self) -> &'static str {
+            pub fn translate<T: Text>(self) -> &'static str {
                 match self {
                     $($(
                         Lang::$LANG => T::$LANG,
@@ -74,12 +74,12 @@ mod test {
         }
 
         let mut lang = Lang::NO;
-        assert_eq!(lang.to_str::<Hi>(), "Hei");
+        assert_eq!(lang.translate::<Hi>(), "Hei");
 
         lang = Lang::EN_UK;
-        assert_eq!(lang.to_str::<HowAreYou>(), "How are you?");
+        assert_eq!(lang.translate::<HowAreYou>(), "How are you?");
 
         lang = Lang::EN_US;
-        assert_eq!(lang.to_str::<HowAreYou>(), "How you doing?");
+        assert_eq!(lang.translate::<HowAreYou>(), "How you doing?");
     }
 }
