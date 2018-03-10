@@ -3,4 +3,6 @@ name = "lang"
 version = "0.1.0"
 authors = ["evenorog <evenorog@gmail.com>"]
 
-[dependencies]
+[features]
+default = []
+serde = []
