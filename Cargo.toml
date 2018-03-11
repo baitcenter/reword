@@ -1,6 +1,6 @@
 [package]
 name = "reword"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["evenorog <evenorog@gmail.com>"]
 description = "A fast and safe translation generator."
 documentation = "https://docs.rs/crate/reword"

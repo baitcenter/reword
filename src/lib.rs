@@ -1,7 +1,7 @@
 //! A fast and safe translation generator.
 //!
-//! The `reword!` macro generates types that allows for fast lookup of string literals based on the
-//! current selected language. As seen in the example below, the `enum` generated has a `translate`
+//! The `reword!` macro generates types that allows for fast lookup of `&'static str` based on the
+//! current selected language. As seen in the example below, the `enum` generated has a `reword`
 //! method that translates the given message based on the current selected language.
 //!
 //! # Examples
