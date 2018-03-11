@@ -1,8 +1,11 @@
 [package]
-name = "lang"
+name = "reword"
 version = "0.1.0"
 authors = ["evenorog <evenorog@gmail.com>"]
-
-[features]
-default = []
-serde = []
+description = "A small and fast translation library."
+documentation = "https://docs.rs/crate/reword"
+repository = "https://github.com/evenorog/reword"
+readme = "README.md"
+license = "MIT/Apache-2.0"
+keywords = []
+categories = []
