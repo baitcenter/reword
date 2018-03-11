@@ -36,13 +36,13 @@ reword! {
 
 fn main() {
     let mut lang = Lang::NO;
-    assert_eq!(lang.translate::<Hi>(), "Hei");
+    assert_eq!(lang.reword::<Hi>(), "Hei");
 
     lang = Lang::EN_UK;
-    assert_eq!(lang.translate::<HowAreYou>(), "How are you?");
+    assert_eq!(lang.reword::<HowAreYou>(), "How are you?");
 
     lang = Lang::EN_US;
-    assert_eq!(lang.translate::<HowAreYou>(), "How you doing?");
+    assert_eq!(lang.reword::<HowAreYou>(), "How you doing?");
 }
 ```
 

@@ -25,13 +25,13 @@
 //!
 //! fn main() {
 //!     let mut lang = Lang::NO;
-//!     assert_eq!(lang.translate::<Hi>(), "Hei");
+//!     assert_eq!(lang.reword::<Hi>(), "Hei");
 //!
 //!     lang = Lang::EN_UK;
-//!     assert_eq!(lang.translate::<HowAreYou>(), "How are you?");
+//!     assert_eq!(lang.reword::<HowAreYou>(), "How are you?");
 //!
 //!     lang = Lang::EN_US;
-//!     assert_eq!(lang.translate::<HowAreYou>(), "How you doing?");
+//!     assert_eq!(lang.reword::<HowAreYou>(), "How you doing?");
 //! }
 //! ```
 //!
@@ -61,13 +61,13 @@
 //!
 //! fn main() {
 //!     let mut lang = example::Lang::NO;
-//!     assert_eq!(lang.translate::<example::Hi>(), "Hei");
+//!     assert_eq!(lang.reword::<example::Hi>(), "Hei");
 //!
 //!     lang = example::Lang::EN_UK;
-//!     assert_eq!(lang.translate::<example::HowAreYou>(), "How are you?");
+//!     assert_eq!(lang.reword::<example::HowAreYou>(), "How are you?");
 //!
 //!     lang = example::Lang::EN_US;
-//!     assert_eq!(lang.translate::<example::HowAreYou>(), "How you doing?");
+//!     assert_eq!(lang.reword::<example::HowAreYou>(), "How you doing?");
 //! }
 //! ```
 //!
@@ -99,13 +99,13 @@
 //!
 //! fn main() {
 //!     let mut lang = Lang::NO;
-//!     assert_eq!(lang.translate::<Hi>(), "Hei");
+//!     assert_eq!(lang.reword::<Hi>(), "Hei");
 //!
 //!     lang = Lang::EN_UK;
-//!     assert_eq!(lang.translate::<HowAreYou>(), "How are you?");
+//!     assert_eq!(lang.reword::<HowAreYou>(), "How are you?");
 //!
 //!     lang = Lang::EN_US;
-//!     assert_eq!(lang.translate::<HowAreYou>(), "How you doing?");
+//!     assert_eq!(lang.reword::<HowAreYou>(), "How you doing?");
 //! }
 //! ```
 
@@ -153,7 +153,7 @@ macro_rules! reword {
         }
         impl $ENUM {
             #[inline]
-            fn translate<T: Text>(self) -> &'static str {
+            fn reword<T: Text>(self) -> &'static str {
                 match self {
                     $($(
                         Lang::$LANG => T::$LANG,
@@ -216,7 +216,7 @@ macro_rules! reword {
         }
         impl $ENUM {
             #[inline]
-            pub fn translate<T: Text>(self) -> &'static str {
+            pub fn reword<T: Text>(self) -> &'static str {
                 match self {
                     $($(
                         Lang::$LANG => T::$LANG,
@@ -265,21 +265,21 @@ mod test {
         }
 
         let mut lang = Lang::EN_UK;
-        assert_eq!(lang.translate::<Hi>(), "Hi");
+        assert_eq!(lang.reword::<Hi>(), "Hi");
 
         lang = Lang::EN_US;
-        assert_eq!(lang.translate::<Hi>(), "Hi");
+        assert_eq!(lang.reword::<Hi>(), "Hi");
 
         lang = Lang::NO;
-        assert_eq!(lang.translate::<Hi>(), "Hei");
+        assert_eq!(lang.reword::<Hi>(), "Hei");
 
         lang = Lang::EN_UK;
-        assert_eq!(lang.translate::<HowAreYou>(), "How are you?");
+        assert_eq!(lang.reword::<HowAreYou>(), "How are you?");
 
         lang = Lang::EN_US;
-        assert_eq!(lang.translate::<HowAreYou>(), "How you doing?");
+        assert_eq!(lang.reword::<HowAreYou>(), "How you doing?");
 
         lang = Lang::NO;
-        assert_eq!(lang.translate::<HowAreYou>(), "Hvordan går det?");
+        assert_eq!(lang.reword::<HowAreYou>(), "Hvordan går det?");
     }
 }
