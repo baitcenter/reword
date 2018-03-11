@@ -255,11 +255,13 @@ mod test {
                 Hi {
                     EN_UK | EN_US = "Hi";
                     NO = "Hei";
+                    SE = "Hej";
                 }
                 HowAreYou {
                     EN_UK = "How are you?";
                     EN_US = "How you doing?";
                     NO = "Hvordan går det?";
+                    SE = "Hur mår du?";
                 }
             }
         }
@@ -273,6 +275,9 @@ mod test {
         lang = Lang::NO;
         assert_eq!(lang.reword::<Hi>(), "Hei");
 
+        lang = Lang::SE;
+        assert_eq!(lang.reword::<Hi>(), "Hej");
+
         lang = Lang::EN_UK;
         assert_eq!(lang.reword::<HowAreYou>(), "How are you?");
 
@@ -281,5 +286,8 @@ mod test {
 
         lang = Lang::NO;
         assert_eq!(lang.reword::<HowAreYou>(), "Hvordan går det?");
+
+        lang = Lang::SE;
+        assert_eq!(lang.reword::<HowAreYou>(), "Hur mår du?")
     }
 }

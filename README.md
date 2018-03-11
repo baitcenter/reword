@@ -1,11 +1,12 @@
 # reword
-
+[![Travis](https://travis-ci.org/evenorog/reword.svg?branch=master)](https://travis-ci.org/evenorog/reword)
+[![Appveyor](https://ci.appveyor.com/api/projects/status/a25ige001079fisb?svg=true)](https://ci.appveyor.com/project/evenorog/reword)
 [![Crates.io](https://img.shields.io/crates/v/reword.svg)](https://crates.io/crates/reword)
 [![Docs](https://docs.rs/reword/badge.svg)](https://docs.rs/reword)
 
 A fast and safe translation generator.
 
-# Examples
+## Examples
 
 Add this to `Cargo.toml`:
 
