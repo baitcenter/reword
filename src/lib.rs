@@ -1,4 +1,8 @@
-//! A small and fast translation library.
+//! A fast and safe translation generator.
+//!
+//! The `reword!` macro generates types that allows for fast lookup of string literals based on the
+//! current selected language. As seen in the example below, the `enum` generated has a `translate`
+//! method that translates the given message based on the current selected language.
 //!
 //! # Examples
 //! ```
@@ -14,7 +18,81 @@
 //!         HowAreYou {
 //!             EN_UK = "How are you?";
 //!             EN_US = "How you doing?";
-//!             NO = "Hvordan har du det?";
+//!             NO = "Hvordan går det?";
+//!         }
+//!     }
+//! }
+//!
+//! fn main() {
+//!     let mut lang = Lang::NO;
+//!     assert_eq!(lang.translate::<Hi>(), "Hei");
+//!
+//!     lang = Lang::EN_UK;
+//!     assert_eq!(lang.translate::<HowAreYou>(), "How are you?");
+//!
+//!     lang = Lang::EN_US;
+//!     assert_eq!(lang.translate::<HowAreYou>(), "How you doing?");
+//! }
+//! ```
+//!
+//! # Visibility
+//! The generated types are not exported out of its module by default.
+//! Use `pub` before the `enum` to export it.
+//!
+//! ```
+//! #[macro_use]
+//! extern crate reword;
+//!
+//! mod example {
+//!     reword! {
+//!         pub enum Lang {
+//!             Hi {
+//!                 EN_UK | EN_US = "Hi";
+//!                 NO = "Hei";
+//!             }
+//!             HowAreYou {
+//!                 EN_UK = "How are you?";
+//!                 EN_US = "How you doing?";
+//!                 NO = "Hvordan går det?";
+//!             }
+//!         }
+//!     }
+//! }
+//!
+//! fn main() {
+//!     let mut lang = example::Lang::NO;
+//!     assert_eq!(lang.translate::<example::Hi>(), "Hei");
+//!
+//!     lang = example::Lang::EN_UK;
+//!     assert_eq!(lang.translate::<example::HowAreYou>(), "How are you?");
+//!
+//!     lang = example::Lang::EN_US;
+//!     assert_eq!(lang.translate::<example::HowAreYou>(), "How you doing?");
+//! }
+//! ```
+//!
+//! # Attributes
+//! Attributes can be attached to both the `enum` and the `structs` generated.
+//!
+//! The `Copy`, `Clone`, `Debug`, `Eq`, `PartialEq`, `Ord`, `PartialOrd`, and `Hash` traits are
+//! automatically derived for the types using the `derive` attribute.
+//!
+//! ```
+//! #[macro_use]
+//! extern crate reword;
+//!
+//! reword! {
+//!     #[repr(C)]
+//!     enum Lang {
+//!         #[derive(Default)]
+//!         Hi {
+//!             EN_UK | EN_US = "Hi";
+//!             NO = "Hei";
+//!         }
+//!         HowAreYou {
+//!             EN_UK = "How are you?";
+//!             EN_US = "How you doing?";
+//!             NO = "Hvordan går det?";
 //!         }
 //!     }
 //! }
@@ -181,7 +259,7 @@ mod test {
                 HowAreYou {
                     EN_UK = "How are you?";
                     EN_US = "How you doing?";
-                    NO = "Hvordan har du det?";
+                    NO = "Hvordan går det?";
                 }
             }
         }
@@ -202,6 +280,6 @@ mod test {
         assert_eq!(lang.translate::<HowAreYou>(), "How you doing?");
 
         lang = Lang::NO;
-        assert_eq!(lang.translate::<HowAreYou>(), "Hvordan har du det?");
+        assert_eq!(lang.translate::<HowAreYou>(), "Hvordan går det?");
     }
 }

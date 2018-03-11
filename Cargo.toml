@@ -2,7 +2,7 @@
 name = "reword"
 version = "0.1.0"
 authors = ["evenorog <evenorog@gmail.com>"]
-description = "A small and fast translation library."
+description = "A fast and safe translation generator."
 documentation = "https://docs.rs/crate/reword"
 repository = "https://github.com/evenorog/reword"
 readme = "README.md"
