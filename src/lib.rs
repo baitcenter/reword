@@ -76,7 +76,13 @@ mod test {
             }
         }
 
-        let mut lang = Lang::NO;
+        let mut lang = Lang::EN_UK;
+        assert_eq!(lang.translate::<Hi>(), "Hi");
+
+        lang = Lang::EN_US;
+        assert_eq!(lang.translate::<Hi>(), "Hi");
+
+        lang = Lang::NO;
         assert_eq!(lang.translate::<Hi>(), "Hei");
 
         lang = Lang::EN_UK;
@@ -84,5 +90,8 @@ mod test {
 
         lang = Lang::EN_US;
         assert_eq!(lang.translate::<HowAreYou>(), "How you doing?");
+
+        lang = Lang::NO;
+        assert_eq!(lang.translate::<HowAreYou>(), "Hvordan har du det?");
     }
 }
