@@ -135,7 +135,7 @@
 //! Generated:
 //!
 //! ```
-//! trait Text {
+//! trait Word {
 //!     const EN_UK: &'static str;
 //!     const EN_US: &'static str;
 //!     const NO: &'static str;
@@ -151,11 +151,11 @@
 //!
 //! impl Lang {
 //!     #[inline]
-//!     fn reword<T: Text>(self) -> &'static str {
+//!     fn reword<W: Word>(self) -> &'static str {
 //!         match self {
-//!             Lang::EN_UK => T::EN_UK,
-//!             Lang::EN_US => T::EN_US,
-//!             Lang::NO => T::NO,
+//!             Lang::EN_UK => W::EN_UK,
+//!             Lang::EN_US => W::EN_US,
+//!             Lang::NO => W::NO,
 //!         }
 //!     }
 //! }
@@ -163,7 +163,7 @@
 //! #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
 //! struct Hi;
 //!
-//! impl Text for Hi {
+//! impl Word for Hi {
 //!     const EN_UK: &'static str = "Hi";
 //!     const EN_US: &'static str = "Hi";
 //!     const NO: &'static str = "Hei";
@@ -172,7 +172,7 @@
 //! #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
 //! struct HowAreYou;
 //!
-//! impl Text for HowAreYou {
+//! impl Word for HowAreYou {
 //!     const EN_UK: &'static str = "How are you?";
 //!     const EN_US: &'static str = "How you doing?";
 //!     const NO: &'static str = "Hvordan går det?";
@@ -208,7 +208,7 @@ macro_rules! reword {
             )*
         }
     ) => {
-        trait Text {
+        trait Word {
             $($(
                 const $LANG: &'static str;
             )+)+
@@ -224,10 +224,10 @@ macro_rules! reword {
         }
         impl $ENUM {
             #[inline]
-            fn reword<T: Text>(self) -> &'static str {
+            fn reword<W: Word>(self) -> &'static str {
                 match self {
                     $($(
-                        Lang::$LANG => T::$LANG,
+                        Lang::$LANG => W::$LANG,
                     )+)+
                 }
             }
@@ -236,7 +236,7 @@ macro_rules! reword {
         $(#[$INNER])*
         #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
         struct $KEY;
-        impl Text for $KEY {
+        impl Word for $KEY {
             $($(
                 const $LANG: &'static str = $STR;
             )+)+
@@ -245,7 +245,7 @@ macro_rules! reword {
             $(#[$INNER2])*
             #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
             struct $KEY2;
-            impl Text for $KEY2 {
+            impl Word for $KEY2 {
                 $($(
                     const $LANG2: &'static str = $STR2;
                 )+)+
@@ -271,7 +271,7 @@ macro_rules! reword {
             )*
         }
     ) => {
-        pub trait Text {
+        pub trait Word {
             $($(
                 const $LANG: &'static str;
             )+)+
@@ -287,10 +287,10 @@ macro_rules! reword {
         }
         impl $ENUM {
             #[inline]
-            pub fn reword<T: Text>(self) -> &'static str {
+            pub fn reword<W: Word>(self) -> &'static str {
                 match self {
                     $($(
-                        Lang::$LANG => T::$LANG,
+                        Lang::$LANG => W::$LANG,
                     )+)+
                 }
             }
@@ -299,7 +299,7 @@ macro_rules! reword {
         $(#[$INNER])*
         #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
         pub struct $KEY;
-        impl Text for $KEY {
+        impl Word for $KEY {
             $($(
                 const $LANG: &'static str = $STR;
             )+)+
@@ -308,7 +308,7 @@ macro_rules! reword {
             $(#[$INNER2])*
             #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
             pub struct $KEY2;
-            impl Text for $KEY2 {
+            impl Word for $KEY2 {
                 $($(
                     const $LANG2: &'static str = $STR2;
                 )+)+
