@@ -229,7 +229,7 @@ macro_rules! reword {
             fn reword<W: Word>(self) -> &'static str {
                 match self {
                     $($(
-                        Lang::$LANG => W::$LANG,
+                        $ENUM::$LANG => W::$LANG,
                     )+)+
                 }
             }
@@ -293,7 +293,7 @@ macro_rules! reword {
             pub fn reword<W: Word>(self) -> &'static str {
                 match self {
                     $($(
-                        Lang::$LANG => W::$LANG,
+                        $ENUM::$LANG => W::$LANG,
                     )+)+
                 }
             }
