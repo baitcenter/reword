@@ -108,6 +108,77 @@
 //!     assert_eq!(lang.reword::<HowAreYou>(), "How you doing?");
 //! }
 //! ```
+//!
+//! # Generated Code
+//!
+//! Usage:
+//!
+//! ```
+//! # #[macro_use]
+//! # extern crate reword;
+//! reword! {
+//!     enum Lang {
+//!         Hi {
+//!             EN_UK | EN_US = "Hi";
+//!             NO = "Hei";
+//!         }
+//!         HowAreYou {
+//!             EN_UK = "How are you?";
+//!             EN_US = "How you doing?";
+//!             NO = "Hvordan går det?";
+//!         }
+//!     }
+//! }
+//! # fn main() {}
+//! ```
+//!
+//! Generated:
+//!
+//! ```
+//! trait Text {
+//!     const EN_UK: &'static str;
+//!     const EN_US: &'static str;
+//!     const NO: &'static str;
+//! }
+//!
+//! #[allow(bad_style)]
+//! #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
+//! enum Lang {
+//!     EN_UK,
+//!     EN_US,
+//!     NO,
+//! }
+//!
+//! impl Lang {
+//!     #[inline]
+//!     fn reword<T: Text>(self) -> &'static str {
+//!         match self {
+//!             Lang::EN_UK => T::EN_UK,
+//!             Lang::EN_US => T::EN_US,
+//!             Lang::NO => T::NO,
+//!         }
+//!     }
+//! }
+//!
+//! #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
+//! struct Hi;
+//!
+//! impl Text for Hi {
+//!     const EN_UK: &'static str = "Hi";
+//!     const EN_US: &'static str = "Hi";
+//!     const NO: &'static str = "Hei";
+//! }
+//!
+//! #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
+//! struct HowAreYou;
+//!
+//! impl Text for HowAreYou {
+//!     const EN_UK: &'static str = "How are you?";
+//!     const EN_US: &'static str = "How you doing?";
+//!     const NO: &'static str = "Hvordan går det?";
+//! }
+//!
+//! ```
 
 #![no_std]
 #![forbid(unstable_features)]
