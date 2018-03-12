@@ -135,6 +135,7 @@
 //! Generated:
 //!
 //! ```
+//! #[allow(bad_style)]
 //! trait Word {
 //!     const EN_UK: &'static str;
 //!     const EN_US: &'static str;
@@ -208,6 +209,7 @@ macro_rules! reword {
             )*
         }
     ) => {
+        #[allow(bad_style)]
         trait Word {
             $($(
                 const $LANG: &'static str;
@@ -271,6 +273,7 @@ macro_rules! reword {
             )*
         }
     ) => {
+        #[allow(bad_style)]
         pub trait Word {
             $($(
                 const $LANG: &'static str;
