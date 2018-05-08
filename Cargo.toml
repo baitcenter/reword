@@ -1,8 +1,8 @@
 [package]
 name = "reword"
-version = "0.1.4"
+version = "0.2.0"
 authors = ["evenorog <evenorog@gmail.com>"]
-description = "A fast and safe translation generator."
+description = "A macro for generating types that allows for fast lookup of `const` values at runtime."
 documentation = "https://docs.rs/crate/reword"
 repository = "https://github.com/evenorog/reword"
 readme = "README.md"

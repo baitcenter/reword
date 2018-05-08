@@ -1,8 +1,4 @@
-//! A fast and safe translation generator.
-//!
-//! The `reword!` macro generates types that allows for fast lookup of `&'static str` based on the
-//! current selected language. As seen in the example below, the `enum` generated has a `reword`
-//! method that translates the given message based on the current selected language.
+//! A macro for generating types that allows for fast lookup of `const` values at runtime.
 //!
 //! # Examples
 //! ```
@@ -10,7 +6,7 @@
 //! extern crate reword;
 //!
 //! reword! {
-//!     enum Lang {
+//!     enum Lang: &'static str {
 //!         Hi {
 //!             EN_UK | EN_US = "Hi";
 //!             NO = "Hei";
@@ -45,7 +41,7 @@
 //!
 //! mod example {
 //!     reword! {
-//!         pub enum Lang {
+//!         pub enum Lang: &'static str {
 //!             Hi {
 //!                 EN_UK | EN_US = "Hi";
 //!                 NO = "Hei";
@@ -81,156 +77,68 @@
 //! #[macro_use]
 //! extern crate reword;
 //!
+//! #[repr(C)]
+//! #[derive(Debug, PartialEq)]
+//! enum Code {
+//!     Hex(u32),
+//!     Rgb(u8, u8, u8),
+//! }
+//!
 //! reword! {
 //!     #[repr(C)]
-//!     enum Lang {
-//!         #[derive(Default)]
-//!         Hi {
-//!             EN_UK | EN_US = "Hi";
-//!             NO = "Hei";
-//!         }
-//!         HowAreYou {
-//!             EN_UK = "How are you?";
-//!             EN_US = "How you doing?";
-//!             NO = "Hvordan går det?";
+//!     enum Color: Code {
+//!         #[repr(C)]
+//!         Red {
+//!             Rgb = Code::Rgb(255, 0, 0);
+//!             Hex = Code::Hex(0xff0000);
 //!         }
 //!     }
 //! }
 //!
 //! fn main() {
-//!     let mut lang = Lang::NO;
-//!     assert_eq!(lang.reword::<Hi>(), "Hei");
+//!     let mut color = Color::Rgb;
+//!     assert_eq!(color.reword::<Red>(), Code::Rgb(255, 0, 0));
 //!
-//!     lang = Lang::EN_UK;
-//!     assert_eq!(lang.reword::<HowAreYou>(), "How are you?");
-//!
-//!     lang = Lang::EN_US;
-//!     assert_eq!(lang.reword::<HowAreYou>(), "How you doing?");
+//!     color = Color::Hex;
+//!     assert_eq!(color.reword::<Red>(), Code::Hex(0xff0000));
 //! }
-//! ```
-//!
-//! # Generated Code
-//!
-//! Usage:
-//!
-//! ```
-//! # #[macro_use]
-//! # extern crate reword;
-//! reword! {
-//!     enum Lang {
-//!         Hi {
-//!             EN_UK | EN_US = "Hi";
-//!             NO = "Hei";
-//!         }
-//!         HowAreYou {
-//!             EN_UK = "How are you?";
-//!             EN_US = "How you doing?";
-//!             NO = "Hvordan går det?";
-//!         }
-//!     }
-//! }
-//! # fn main() {}
-//! ```
-//!
-//! Generated:
-//!
-//! ```
-//! #[allow(bad_style)]
-//! trait Word {
-//!     const EN_UK: &'static str;
-//!     const EN_US: &'static str;
-//!     const NO: &'static str;
-//! }
-//!
-//! #[allow(bad_style)]
-//! #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
-//! enum Lang {
-//!     EN_UK,
-//!     EN_US,
-//!     NO,
-//! }
-//!
-//! impl Lang {
-//!     #[inline]
-//!     fn reword<W: Word>(self) -> &'static str {
-//!         match self {
-//!             Lang::EN_UK => W::EN_UK,
-//!             Lang::EN_US => W::EN_US,
-//!             Lang::NO => W::NO,
-//!         }
-//!     }
-//! }
-//!
-//! #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
-//! struct Hi;
-//!
-//! impl Word for Hi {
-//!     const EN_UK: &'static str = "Hi";
-//!     const EN_US: &'static str = "Hi";
-//!     const NO: &'static str = "Hei";
-//! }
-//!
-//! #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
-//! struct HowAreYou;
-//!
-//! impl Word for HowAreYou {
-//!     const EN_UK: &'static str = "How are you?";
-//!     const EN_US: &'static str = "How you doing?";
-//!     const NO: &'static str = "Hvordan går det?";
-//! }
-//!
 //! ```
 
 #![no_std]
 #![forbid(unstable_features)]
 #![deny(missing_debug_implementations, unused_import_braces, unused_qualifications, unsafe_code)]
 
-/// The macro used to generate the language structures.
+/// The macro used to generate the lookup types.
 ///
 /// See the [crate level docs](index.html) for more information.
 #[macro_export]
 macro_rules! reword {
     (
         $(#[$OUTER:meta])*
-        enum $ENUM:ident {
+        enum $ENUM:ident : $T:ty {
             $(#[$INNER:meta])*
-            $KEY:ident {
-                $(
-                    $($LANG:ident)|+ = $STR:expr;
-                )+
-            }
+            $KEY:ident { $($($NAME:ident)|+ = $VAL:expr;)+ }
             $(
                 $(#[$INNER2:meta])*
-                $KEY2:ident {
-                    $(
-                        $($LANG2:ident)|+ = $STR2:expr;
-                    )+
-                }
+                $KEY2:ident { $($($NAME2:ident)|+ = $VAL2:expr;)+ }
             )*
         }
     ) => {
-        #[allow(bad_style)]
         trait Word {
-            $($(
-                const $LANG: &'static str;
-            )+)+
+            $($(#[allow(non_upper_case_globals)] const $NAME: $T;)+)+
         }
 
         $(#[$OUTER])*
-        #[allow(bad_style)]
         #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
         enum $ENUM {
-            $($(
-                $LANG,
-            )+)+
+            $($(#[allow(non_camel_case_types)] $NAME,)+)+
         }
+
         impl $ENUM {
             #[inline]
-            fn reword<W: Word>(self) -> &'static str {
+            fn reword<W: Word>(self) -> $T {
                 match self {
-                    $($(
-                        $ENUM::$LANG => W::$LANG,
-                    )+)+
+                    $($($ENUM::$NAME => W::$NAME,)+)+
                 }
             }
         }
@@ -238,63 +146,47 @@ macro_rules! reword {
         $(#[$INNER])*
         #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
         struct $KEY;
+
         impl Word for $KEY {
-            $($(
-                const $LANG: &'static str = $STR;
-            )+)+
+            $($(#[allow(non_upper_case_globals)] const $NAME: $T = $VAL;)+)+
         }
+
         $(
             $(#[$INNER2])*
             #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
             struct $KEY2;
+
             impl Word for $KEY2 {
-                $($(
-                    const $LANG2: &'static str = $STR2;
-                )+)+
+                $($(#[allow(non_upper_case_globals)] const $NAME2: $T = $VAL2;)+)+
             }
         )*
     };
     (
         $(#[$OUTER:meta])*
-        pub enum $ENUM:ident {
+        pub enum $ENUM:ident : $T:ty {
             $(#[$INNER:meta])*
-            $KEY:ident {
-                $(
-                    $($LANG:ident)|+ = $STR:expr;
-                )+
-            }
+            $KEY:ident { $($($NAME:ident)|+ = $VAL:expr;)+ }
             $(
                 $(#[$INNER2:meta])*
-                $KEY2:ident {
-                    $(
-                        $($LANG2:ident)|+ = $STR2:expr;
-                    )+
-                }
+                $KEY2:ident { $($($NAME2:ident)|+ = $VAL2:expr;)+ }
             )*
         }
     ) => {
-        #[allow(bad_style)]
         pub trait Word {
-            $($(
-                const $LANG: &'static str;
-            )+)+
+            $($(#[allow(non_upper_case_globals)] const $NAME: $T;)+)+
         }
 
         $(#[$OUTER])*
-        #[allow(bad_style)]
         #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
         pub enum $ENUM {
-            $($(
-                $LANG,
-            )+)+
+            $($(#[allow(non_camel_case_types)] $NAME,)+)+
         }
+
         impl $ENUM {
             #[inline]
-            pub fn reword<W: Word>(self) -> &'static str {
+            pub fn reword<W: Word>(self) -> $T {
                 match self {
-                    $($(
-                        $ENUM::$LANG => W::$LANG,
-                    )+)+
+                    $($($ENUM::$NAME => W::$NAME,)+)+
                 }
             }
         }
@@ -302,66 +194,19 @@ macro_rules! reword {
         $(#[$INNER])*
         #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
         pub struct $KEY;
+
         impl Word for $KEY {
-            $($(
-                const $LANG: &'static str = $STR;
-            )+)+
+            $($(#[allow(non_upper_case_globals)] const $NAME: $T = $VAL;)+)+
         }
+
         $(
             $(#[$INNER2])*
             #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
             pub struct $KEY2;
+
             impl Word for $KEY2 {
-                $($(
-                    const $LANG2: &'static str = $STR2;
-                )+)+
+                $($(#[allow(non_upper_case_globals)] const $NAME2: $T = $VAL2;)+)+
             }
         )*
     };
-}
-
-#[cfg(test)]
-mod test {
-    #[test]
-    fn reword() {
-        reword! {
-            enum Lang {
-                Hi {
-                    EN_UK | EN_US = "Hi";
-                    NO = "Hei";
-                    SE = "Hej";
-                }
-                HowAreYou {
-                    EN_UK = "How are you?";
-                    EN_US = "How you doing?";
-                    NO = "Hvordan går det?";
-                    SE = "Hur mår du?";
-                }
-            }
-        }
-
-        let mut lang = Lang::EN_UK;
-        assert_eq!(lang.reword::<Hi>(), "Hi");
-
-        lang = Lang::EN_US;
-        assert_eq!(lang.reword::<Hi>(), "Hi");
-
-        lang = Lang::NO;
-        assert_eq!(lang.reword::<Hi>(), "Hei");
-
-        lang = Lang::SE;
-        assert_eq!(lang.reword::<Hi>(), "Hej");
-
-        lang = Lang::EN_UK;
-        assert_eq!(lang.reword::<HowAreYou>(), "How are you?");
-
-        lang = Lang::EN_US;
-        assert_eq!(lang.reword::<HowAreYou>(), "How you doing?");
-
-        lang = Lang::NO;
-        assert_eq!(lang.reword::<HowAreYou>(), "Hvordan går det?");
-
-        lang = Lang::SE;
-        assert_eq!(lang.reword::<HowAreYou>(), "Hur mår du?")
-    }
 }
