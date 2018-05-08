@@ -1,6 +1,6 @@
 [package]
 name = "reword"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["evenorog <evenorog@gmail.com>"]
 description = "A macro for generating types that allows for fast lookup of `const` values at runtime."
 documentation = "https://docs.rs/crate/reword"

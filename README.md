@@ -4,7 +4,7 @@
 [![Crates.io](https://img.shields.io/crates/v/reword.svg)](https://crates.io/crates/reword)
 [![Docs](https://docs.rs/reword/badge.svg)](https://docs.rs/reword)
 
-A fast and safe translation generator.
+A macro for generating types that allows for fast lookup of `const` values at runtime.
 
 ## Examples
 
@@ -12,7 +12,7 @@ Add this to `Cargo.toml`:
 
 ```toml
 [dependencies]
-reword = "0.1"
+reword = "0.2"
 ```
 
 And this to `main.rs`:
@@ -22,7 +22,7 @@ And this to `main.rs`:
 extern crate reword;
 
 reword! {
-    enum Lang {
+    enum Lang: &'static str {
         Hi {
             EN_UK | EN_US = "Hi";
             NO = "Hei";
