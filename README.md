@@ -6,6 +6,12 @@
 
 A macro for generating structures for value lookup.
 
+The structures generated are not exported out of its module by default.
+Use `pub` before the`enum` keyword to export it.
+Attributes can be attached to both the `enum` and the structures generated.
+The `Copy`, `Clone`, `Debug`, `Eq`, `PartialEq`, `Ord`, `PartialOrd`, and `Hash` traits are
+automatically derived for the types using the derive attribute.
+
 ## Examples
 
 Add this to `Cargo.toml`:
