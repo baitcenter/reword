@@ -18,7 +18,7 @@ Add this to `Cargo.toml`:
 
 ```toml
 [dependencies]
-reword = "0.3"
+reword = "1"
 ```
 
 And this to `main.rs`:
