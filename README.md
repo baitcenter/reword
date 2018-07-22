@@ -4,7 +4,7 @@
 [![Crates.io](https://img.shields.io/crates/v/reword.svg)](https://crates.io/crates/reword)
 [![Docs](https://docs.rs/reword/badge.svg)](https://docs.rs/reword)
 
-A macro for generating types that allows for fast lookup of `const` values at runtime.
+A macro for generating structures for value lookup.
 
 ## Examples
 
@@ -12,7 +12,7 @@ Add this to `Cargo.toml`:
 
 ```toml
 [dependencies]
-reword = "0.2"
+reword = "0.3"
 ```
 
 And this to `main.rs`:
@@ -27,11 +27,6 @@ reword! {
             EN_UK | EN_US = "Hi";
             NO = "Hei";
         }
-        HowAreYou {
-            EN_UK = "How are you?";
-            EN_US = "How you doing?";
-            NO = "Hvordan går det?";
-        }
     }
 }
 
@@ -40,10 +35,10 @@ fn main() {
     assert_eq!(lang.reword::<Hi>(), "Hei");
 
     lang = Lang::EN_UK;
-    assert_eq!(lang.reword::<HowAreYou>(), "How are you?");
+    assert_eq!(lang.reword::<Hi>(), "Hi");
 
     lang = Lang::EN_US;
-    assert_eq!(lang.reword::<HowAreYou>(), "How you doing?");
+    assert_eq!(lang.reword::<Hi>(), "Hi");
 }
 ```
 

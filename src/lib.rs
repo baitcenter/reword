@@ -1,4 +1,4 @@
-//! A macro for generating types that allows for fast lookup of `const` values at runtime.
+//! A macro for generating structures for value lookup.
 //!
 //! # Examples
 //! ```
@@ -11,11 +11,6 @@
 //!             EN_UK | EN_US = "Hi";
 //!             NO = "Hei";
 //!         }
-//!         HowAreYou {
-//!             EN_UK = "How are you?";
-//!             EN_US = "How you doing?";
-//!             NO = "Hvordan går det?";
-//!         }
 //!     }
 //! }
 //!
@@ -24,16 +19,21 @@
 //!     assert_eq!(lang.reword::<Hi>(), "Hei");
 //!
 //!     lang = Lang::EN_UK;
-//!     assert_eq!(lang.reword::<HowAreYou>(), "How are you?");
+//!     assert_eq!(lang.reword::<Hi>(), "Hi");
 //!
 //!     lang = Lang::EN_US;
-//!     assert_eq!(lang.reword::<HowAreYou>(), "How you doing?");
+//!     assert_eq!(lang.reword::<Hi>(), "Hi");
 //! }
 //! ```
 
 #![no_std]
 #![forbid(unstable_features)]
-#![deny(missing_debug_implementations, unused_import_braces, unused_qualifications, unsafe_code)]
+#![deny(
+    missing_debug_implementations,
+    unused_import_braces,
+    unused_qualifications,
+    unsafe_code
+)]
 
 /// The macro used to generate the lookup types.
 ///
