@@ -23,22 +23,23 @@
 //! fn main() {
 //!     let mut lang = Lang::NO;
 //!     assert_eq!(lang.reword::<Hi>(), "Hei");
-//!
 //!     lang = Lang::EN_UK;
 //!     assert_eq!(lang.reword::<Hi>(), "Hi");
-//!
 //!     lang = Lang::EN_US;
 //!     assert_eq!(lang.reword::<Hi>(), "Hi");
 //! }
 //! ```
 
 #![no_std]
-#![forbid(unstable_features)]
 #![deny(
+    bad_style,
+    bare_trait_objects,
     missing_debug_implementations,
+    missing_docs,
     unused_import_braces,
     unused_qualifications,
-    unsafe_code
+    unsafe_code,
+    unstable_features
 )]
 
 /// The macro used to generate the lookup structures.

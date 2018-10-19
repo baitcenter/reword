@@ -1,6 +1,5 @@
 # reword
 [![Travis](https://travis-ci.org/evenorog/reword.svg?branch=master)](https://travis-ci.org/evenorog/reword)
-[![Appveyor](https://ci.appveyor.com/api/projects/status/a25ige001079fisb?svg=true)](https://ci.appveyor.com/project/evenorog/reword)
 [![Crates.io](https://img.shields.io/crates/v/reword.svg)](https://crates.io/crates/reword)
 [![Docs](https://docs.rs/reword/badge.svg)](https://docs.rs/reword)
 
@@ -39,10 +38,8 @@ reword! {
 fn main() {
     let mut lang = Lang::NO;
     assert_eq!(lang.reword::<Hi>(), "Hei");
-
     lang = Lang::EN_UK;
     assert_eq!(lang.reword::<Hi>(), "Hi");
-
     lang = Lang::EN_US;
     assert_eq!(lang.reword::<Hi>(), "Hi");
 }
