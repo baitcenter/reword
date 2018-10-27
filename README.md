@@ -3,7 +3,7 @@
 [![Crates.io](https://img.shields.io/crates/v/reword.svg)](https://crates.io/crates/reword)
 [![Docs](https://docs.rs/reword/badge.svg)](https://docs.rs/reword)
 
-A macro for generating structures for value lookup.
+Provides a macro for generating structures for value lookup.
 
 The structures generated are not exported out of its module by default.
 Use `pub` before the`enum` keyword to export it.

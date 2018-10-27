@@ -1,4 +1,4 @@
-//! A macro for generating structures for value lookup.
+//! Provides a macro for generating structures for value lookup.
 //!
 //! The structures generated are not exported out of its module by default.
 //! Use `pub` before the`enum` keyword to export it.
