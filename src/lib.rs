@@ -1,17 +1,7 @@
 //! Provides a macro for generating structures for value lookup.
 //!
-//! The structures generated are not exported out of its module by default.
-//! Use `pub` before the`enum` keyword to export it.
-//! Attributes can be attached to both the `enum` and the structures generated.
-//! The `Copy`, `Clone`, `Debug`, `Eq`, `PartialEq`, `Ord`, `PartialOrd`, and `Hash` traits are
-//! automatically derived for the types using the derive attribute.
-//!
-//! # Examples
 //! ```
-//! #[macro_use]
-//! extern crate reword;
-//!
-//! reword! {
+//! reword::reword! {
 //!     enum Lang: &'static str {
 //!         Hi {
 //!             EN_UK | EN_US = "Hi";
@@ -20,15 +10,19 @@
 //!     }
 //! }
 //!
-//! fn main() {
-//!     let mut lang = Lang::NO;
-//!     assert_eq!(lang.reword::<Hi>(), "Hei");
-//!     lang = Lang::EN_UK;
-//!     assert_eq!(lang.reword::<Hi>(), "Hi");
-//!     lang = Lang::EN_US;
-//!     assert_eq!(lang.reword::<Hi>(), "Hi");
-//! }
+//! let mut lang = Lang::NO;
+//! assert_eq!(lang.reword::<Hi>(), "Hei");
+//! lang = Lang::EN_UK;
+//! assert_eq!(lang.reword::<Hi>(), "Hi");
+//! lang = Lang::EN_US;
+//! assert_eq!(lang.reword::<Hi>(), "Hi");
 //! ```
+//!
+//! The structures generated are not exported out of its module by default.
+//! Use `pub` before the`enum` keyword to export it.
+//! Attributes can be attached to both the `enum` and the structures generated.
+//! The `Copy`, `Clone`, `Debug`, `Eq`, `PartialEq`, `Ord`, `PartialOrd`, and `Hash` traits are
+//! automatically derived for the types using the derive attribute.
 
 #![no_std]
 #![doc(html_root_url = "https://docs.rs/reword/1.0.2")]
