@@ -1,4 +1,4 @@
-# `reword!`
+# reword
 [![Travis](https://travis-ci.org/evenorog/reword.svg?branch=master)](https://travis-ci.org/evenorog/reword)
 [![Crates.io](https://img.shields.io/crates/v/reword.svg)](https://crates.io/crates/reword)
 [![Docs](https://docs.rs/reword/badge.svg)](https://docs.rs/reword)
@@ -29,7 +29,7 @@ Attributes can be attached to both the `enum` and the structures generated.
 The `Copy`, `Clone`, `Debug`, `Eq`, `PartialEq`, `Ord`, `PartialOrd`, and `Hash` traits are
 automatically derived for the types using the derive attribute.
 
-## License
+### License
 
 Licensed under either of
 
@@ -43,4 +43,3 @@ at your option.
 Unless you explicitly state otherwise, any contribution intentionally submitted
 for inclusion in the work by you, as defined in the Apache-2.0 license, shall be dual licensed as above, without any
 additional terms or conditions.
-````
