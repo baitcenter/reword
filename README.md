@@ -3,10 +3,12 @@
 [![Crates.io](https://img.shields.io/crates/v/reword.svg)](https://crates.io/crates/reword)
 [![Docs](https://docs.rs/reword/badge.svg)](https://docs.rs/reword)
 
-Provides a macro for generating structures for value lookup.
+Provides a macro for generating static structures used for value lookup.
 
 ```rust
-reword::reword! {
+use reword::reword;
+
+reword! {
     enum Lang: &'static str {
         Hi {
             EN_UK | EN_US = "Hi";

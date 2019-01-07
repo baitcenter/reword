@@ -1,7 +1,9 @@
-//! Provides a macro for generating structures for value lookup.
+//! Provides a macro for generating static structures used for value lookup.
 //!
 //! ```
-//! reword::reword! {
+//! use reword::reword;
+//!
+//! reword! {
 //!     enum Lang: &'static str {
 //!         Hi {
 //!             EN_UK | EN_US = "Hi";
