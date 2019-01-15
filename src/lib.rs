@@ -27,7 +27,7 @@
 //! automatically derived for the types using the derive attribute.
 
 #![no_std]
-#![doc(html_root_url = "https://docs.rs/reword/1.0.4")]
+#![doc(html_root_url = "https://docs.rs/reword/1.0.5")]
 #![deny(
     bad_style,
     bare_trait_objects,
