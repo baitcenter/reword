@@ -55,6 +55,7 @@ macro_rules! reword {
             )*
         }
     ) => {
+        /// Trait used for lookup.
         trait Word {
             $($(#[allow(non_upper_case_globals)] const $name: $T;)+)+
         }
@@ -66,6 +67,7 @@ macro_rules! reword {
         }
 
         impl $reword {
+            /// Get the value corresponding to the value of `self`.
             #[inline]
             fn reword<W: Word>(self) -> $T {
                 match self {
@@ -103,6 +105,7 @@ macro_rules! reword {
             )*
         }
     ) => {
+        /// Trait used for lookup.
         pub trait Word {
             $($(#[allow(non_upper_case_globals)] const $name: $T;)+)+
         }
@@ -114,6 +117,7 @@ macro_rules! reword {
         }
 
         impl $reword {
+            /// Get the value corresponding to the value of `self`.
             #[inline]
             pub fn reword<W: Word>(self) -> $T {
                 match self {
