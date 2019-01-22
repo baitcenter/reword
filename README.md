@@ -1,4 +1,5 @@
-# reword
+<img src="https://raw.githubusercontent.com/evenorog/reword/nightly/reword.svg?sanitize=true" alt="reword" width="100%">
+
 [![Travis](https://travis-ci.org/evenorog/reword.svg?branch=master)](https://travis-ci.org/evenorog/reword)
 [![Crates.io](https://img.shields.io/crates/v/reword.svg)](https://crates.io/crates/reword)
 [![Docs](https://docs.rs/reword/badge.svg)](https://docs.rs/reword)
@@ -6,8 +7,6 @@
 Provides a macro for generating static structures used for value lookup.
 
 ```rust
-use reword::reword;
-
 reword! {
     enum Lang: &'static str {
         Hi {
@@ -31,7 +30,7 @@ Attributes can be attached to both the `enum` and the structures generated.
 The `Copy`, `Clone`, `Debug`, `Eq`, `PartialEq`, `Ord`, `PartialOrd`, and `Hash` traits are
 automatically derived for the types using the derive attribute.
 
-### License
+## License
 
 Licensed under either of
 
