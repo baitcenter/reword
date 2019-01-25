@@ -10,8 +10,8 @@ Provides a macro for generating static structures used for value lookup.
 reword! {
     enum Lang: &'static str {
         Hi {
-            EN_UK | EN_US = "Hi";
             NO = "Hei";
+            EN_UK | EN_US = "Hi";
         }
     }
 }
