@@ -1,6 +1,6 @@
 [package]
 name = "reword"
-version = "1.0.5"
+version = "1.0.6"
 authors = ["evenorog <evenorog@gmail.com>"]
 description = "Provides a macro for generating static structures used for value lookup."
 documentation = "https://docs.rs/crate/reword"
