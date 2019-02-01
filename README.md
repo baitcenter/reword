@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/evenorog/reword/nightly/reword.svg?sanitize=true" alt="reword" width="100%">
+<img src="https://raw.githubusercontent.com/evenorog/reword/master/reword.svg?sanitize=true" alt="reword" width="100%">
 
 [![Travis](https://travis-ci.org/evenorog/reword.svg?branch=master)](https://travis-ci.org/evenorog/reword)
 [![Crates.io](https://img.shields.io/crates/v/reword.svg)](https://crates.io/crates/reword)
