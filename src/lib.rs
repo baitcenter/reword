@@ -23,10 +23,12 @@
 //! Use `pub` before the`enum` keyword to export it.
 //! Attributes can be attached to both the `enum` and the structures generated.
 //! The `Copy`, `Clone`, `Debug`, `Eq`, `PartialEq`, `Ord`, `PartialOrd`, and `Hash` traits are
-//! automatically derived for the types using the derive attribute.
+//! automatically derived for the types using the derive attribute. At the moment, the reword macro
+//! can only be used once per module, so if you need to define multiple structures you should
+//! put them in separate submodules.
 
 #![no_std]
-#![doc(html_root_url = "https://docs.rs/reword/1.0.6")]
+#![doc(html_root_url = "https://docs.rs/reword/latest")]
 #![deny(
     bad_style,
     bare_trait_objects,

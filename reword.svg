@@ -1,9 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg">
-    <defs>
-        <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:#c14242;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#d951af;stop-opacity:1" />
-        </linearGradient>
-    </defs>
-    <text fill="url(#g)" dominant-baseline="text-before-edge" font-size="100">reword</text>
+    <text dx="3" fill="#00825f" dominant-baseline="text-before-edge" font-size="105">reword</text>
+    <text fill="#00a478" dominant-baseline="text-before-edge" font-size="105">reword</text>
 </svg>
