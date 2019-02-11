@@ -70,7 +70,7 @@ macro_rules! reword {
         impl $reword {
             /// Get the value corresponding to the value of `self`.
             #[inline]
-            fn reword<W: Word>(self) -> $T {
+            fn reword<W: Word + ?Sized>(self) -> $T {
                 match self {
                     $($($reword::$name => W::$name,)+)+
                 }
@@ -120,7 +120,7 @@ macro_rules! reword {
         impl $reword {
             /// Get the value corresponding to the value of `self`.
             #[inline]
-            pub fn reword<W: Word>(self) -> $T {
+            pub fn reword<W: Word + ?Sized>(self) -> $T {
                 match self {
                     $($($reword::$name => W::$name,)+)+
                 }
