@@ -4,9 +4,9 @@
 //! # use reword::reword;
 //! reword! {
 //!     enum Lang: &'static str {
-//!         Hi {
-//!             NO = "Hei";
-//!             EN_UK | EN_US = "Hi";
+//!         struct Hi {
+//!             const NO = "Hei";
+//!             const EN_UK | EN_US = "Hi";
 //!         }
 //!     }
 //! }
@@ -49,10 +49,10 @@ macro_rules! reword {
         $(#[$outer:meta])*
         enum $reword:ident : $T:ty {
             $(#[$inner:meta])*
-            $key:ident { $($($name:ident)|+ = $val:expr;)+ }
+            struct $key:ident { $(const $($name:ident)|+ = $val:expr;)+ }
             $(
                 $(#[$inner2:meta])*
-                $key2:ident { $($($name2:ident)|+ = $val2:expr;)+ }
+                struct $key2:ident { $(const $($name2:ident)|+ = $val2:expr;)+ }
             )*
         }
     ) => {
@@ -99,10 +99,10 @@ macro_rules! reword {
         $(#[$outer:meta])*
         pub enum $reword:ident : $T:ty {
             $(#[$inner:meta])*
-            $key:ident { $($($name:ident)|+ = $val:expr;)+ }
+            struct $key:ident { $(const $($name:ident)|+ = $val:expr;)+ }
             $(
                 $(#[$inner2:meta])*
-                $key2:ident { $($($name2:ident)|+ = $val2:expr;)+ }
+                struct $key2:ident { $(const $($name2:ident)|+ = $val2:expr;)+ }
             )*
         }
     ) => {

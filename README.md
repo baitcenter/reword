@@ -9,9 +9,9 @@ Provides a macro for generating static structures used for value lookup.
 ```rust
 reword! {
     enum Lang: &'static str {
-        Hi {
-            NO = "Hei";
-            EN_UK | EN_US = "Hi";
+        struct Hi {
+            const NO = "Hei";
+            const EN_UK | EN_US = "Hi";
         }
     }
 }
