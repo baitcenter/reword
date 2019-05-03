@@ -1,4 +1,4 @@
-//! Provides a macro for generating static structures used for value lookup.
+//! Provides a macro for generating structures used for value lookup.
 //!
 //! ```
 //! # use reword::reword;
@@ -12,11 +12,11 @@
 //! }
 //!
 //! let mut lang = Lang::NO;
-//! assert_eq!(lang.reword::<Hi>(), "Hei");
+//! assert_eq!(lang.get::<Hi>(), "Hei");
 //! lang = Lang::EN_UK;
-//! assert_eq!(lang.reword::<Hi>(), "Hi");
+//! assert_eq!(lang.get::<Hi>(), "Hi");
 //! lang = Lang::EN_US;
-//! assert_eq!(lang.reword::<Hi>(), "Hi");
+//! assert_eq!(lang.get::<Hi>(), "Hi");
 //! ```
 //!
 //! The structures generated are not exported out of its module by default.
@@ -47,7 +47,7 @@
 macro_rules! reword {
     (
         $(#[$outer:meta])*
-        enum $reword:ident : $T:ty {
+        enum $main:ident : $T:ty {
             $(#[$inner:meta])*
             struct $key:ident { $(const $($name:ident)|+ = $val:expr;)+ }
             $(
@@ -62,17 +62,17 @@ macro_rules! reword {
         }
 
         $(#[$outer])*
-        #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
-        enum $reword {
+        #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Ord, PartialOrd)]
+        enum $main {
             $($(#[allow(non_camel_case_types)] $name,)+)+
         }
 
-        impl $reword {
+        impl $main {
             /// Get the value corresponding to the value of `self`.
             #[inline]
-            fn reword<W: Word + ?Sized>(self) -> $T {
+            fn get<W: Word + ?Sized>(self) -> $T {
                 match self {
-                    $($($reword::$name => W::$name,)+)+
+                    $($($main::$name => W::$name,)+)+
                 }
             }
         }
@@ -97,7 +97,7 @@ macro_rules! reword {
     };
     (
         $(#[$outer:meta])*
-        pub enum $reword:ident : $T:ty {
+        pub enum $main:ident : $T:ty {
             $(#[$inner:meta])*
             struct $key:ident { $(const $($name:ident)|+ = $val:expr;)+ }
             $(
@@ -112,17 +112,17 @@ macro_rules! reword {
         }
 
         $(#[$outer])*
-        #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug, Hash)]
-        pub enum $reword {
+        #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Ord, PartialOrd)]
+        pub enum $main {
             $($(#[allow(non_camel_case_types)] $name,)+)+
         }
 
-        impl $reword {
+        impl $main {
             /// Get the value corresponding to the value of `self`.
             #[inline]
-            pub fn reword<W: Word + ?Sized>(self) -> $T {
+            pub fn get<W: Word + ?Sized>(self) -> $T {
                 match self {
-                    $($($reword::$name => W::$name,)+)+
+                    $($($main::$name => W::$name,)+)+
                 }
             }
         }

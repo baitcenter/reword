@@ -4,7 +4,7 @@
 [![Crates.io](https://img.shields.io/crates/v/reword.svg)](https://crates.io/crates/reword)
 [![Docs](https://docs.rs/reword/badge.svg)](https://docs.rs/reword)
 
-Provides a macro for generating static structures used for value lookup.
+Provides a macro for generating structures used for value lookup.
 
 ```rust
 reword! {
@@ -17,11 +17,11 @@ reword! {
 }
 
 let mut lang = Lang::NO;
-assert_eq!(lang.reword::<Hi>(), "Hei");
+assert_eq!(lang.get::<Hi>(), "Hei");
 lang = Lang::EN_UK;
-assert_eq!(lang.reword::<Hi>(), "Hi");
+assert_eq!(lang.get::<Hi>(), "Hi");
 lang = Lang::EN_US;
-assert_eq!(lang.reword::<Hi>(), "Hi");
+assert_eq!(lang.get::<Hi>(), "Hi");
 ```
 
 The structures generated are not exported out of its module by default.
