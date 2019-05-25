@@ -2,7 +2,7 @@
 name = "reword"
 version = "3.0.0"
 authors = ["evenorog <evenorog@gmail.com>"]
-description = "Provides a macro for generating structures used for value lookup."
+description = "Provides a macro to generate structures used for constant value lookup."
 documentation = "https://docs.rs/crate/reword"
 repository = "https://github.com/evenorog/reword"
 readme = "README.md"
