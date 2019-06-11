@@ -52,7 +52,7 @@
 macro_rules! reword {
     (
         $(#[$outer:meta])*
-        $pub:vis enum $main:ident : $T:ty {
+        $pub:vis enum $enum:ident : $T:ty {
             $(#[$inner:meta])*
             struct $key:ident { $(const $($name:ident)|+ = $val:expr;)+ }
             $(
@@ -68,16 +68,16 @@ macro_rules! reword {
 
         $(#[$outer])*
         #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Ord, PartialOrd)]
-        $pub enum $main {
+        $pub enum $enum {
             $($(#[allow(non_camel_case_types)] $name,)+)+
         }
 
-        impl $main {
+        impl $enum {
             /// Returns the value of `W`.
             #[inline]
             $pub fn get<W: Word + ?Sized>(self) -> $T {
                 match self {
-                    $($($main::$name => W::$name,)+)+
+                    $($($enum::$name => W::$name,)+)+
                 }
             }
         }
