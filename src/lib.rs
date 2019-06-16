@@ -51,22 +51,22 @@
 #[macro_export]
 macro_rules! reword {
     (
-        $(#[$outer:meta])*
+        $(#[$enum_meta:meta])*
         $pub:vis enum $enum:ident : $T:ty {
-            $(#[$inner:meta])*
-            struct $key:ident { $(const $($name:ident)|+ = $val:expr;)+ }
+            $(#[$key_meta:meta])*
+            struct $key:ident { $($(#[$name_meta:meta])* const $($name:ident)|+ = $val:expr;)+ }
             $(
-                $(#[$inner2:meta])*
-                struct $key2:ident { $(const $($name2:ident)|+ = $val2:expr;)+ }
+                $(#[$key2_meta:meta])*
+                struct $key2:ident { $($(#[$name2_meta:meta])* const $($name2:ident)|+ = $val2:expr;)+ }
             )*
         }
     ) => {
         /// Trait used for constant value lookup.
         $pub trait Word {
-            $($(#[allow(non_upper_case_globals)] const $name: $T;)+)+
+            $($(#[$name_meta])* $(#[allow(non_upper_case_globals)] const $name: $T;)+)+
         }
 
-        $(#[$outer])*
+        $(#[$enum_meta])*
         #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Ord, PartialOrd)]
         $pub enum $enum {
             $($(#[allow(non_camel_case_types)] $name,)+)+
@@ -82,21 +82,21 @@ macro_rules! reword {
             }
         }
 
-        $(#[$inner])*
+        $(#[$key_meta])*
         #[derive(Copy, Clone, Debug, Default, Hash, Ord, PartialOrd, Eq, PartialEq)]
         $pub struct $key;
 
         impl Word for $key {
-            $($(#[allow(non_upper_case_globals)] const $name: $T = $val;)+)+
+            $($(#[$name_meta])* $(#[allow(non_upper_case_globals)] const $name: $T = $val;)+)+
         }
 
         $(
-            $(#[$inner2])*
+            $(#[$key2_meta])*
             #[derive(Copy, Clone, Debug, Default, Hash, Ord, PartialOrd, Eq, PartialEq)]
             $pub struct $key2;
 
             impl Word for $key2 {
-                $($(#[allow(non_upper_case_globals)] const $name2: $T = $val2;)+)+
+                $($(#[$name2_meta])* $(#[allow(non_upper_case_globals)] const $name2: $T = $val2;)+)+
             }
         )*
     };
