@@ -39,7 +39,7 @@ automatically derived for the types using the derive attribute. At the moment, t
 can only be used once per module, so if you need to define multiple structures you should
 put them in separate submodules.
 
-## License
+### License
 
 Licensed under either of
 
