@@ -33,7 +33,7 @@
 //! Use `pub` before the`enum` keyword to export it.
 
 #![no_std]
-#![doc(html_root_url = "https://docs.rs/reword/latest")]
+#![doc(html_root_url = "https://docs.rs/reword/3.0.1")]
 #![deny(
     bad_style,
     bare_trait_objects,
@@ -62,6 +62,7 @@ macro_rules! reword {
         }
     ) => {
         /// Trait used for constant value lookup.
+        #[doc(hidden)]
         $pub trait Word {
             $($(#[$name_meta])* $(#[allow(non_upper_case_globals)] const $name: $T;)+)+
         }
