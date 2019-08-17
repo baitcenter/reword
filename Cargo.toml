@@ -1,6 +1,6 @@
 [package]
 name = "reword"
-version = "3.0.1"
+version = "3.0.2"
 authors = ["evenorog <evenorog@gmail.com>"]
 description = "Provides a macro to generate structures used for constant value lookup."
 documentation = "https://docs.rs/crate/reword"

@@ -35,7 +35,7 @@
 //! put them in separate submodules.
 
 #![no_std]
-#![doc(html_root_url = "https://docs.rs/reword/3.0.1")]
+#![doc(html_root_url = "https://docs.rs/reword/3.0.2")]
 #![deny(
     bad_style,
     bare_trait_objects,
