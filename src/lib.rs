@@ -26,11 +26,13 @@
 //! assert_eq!(lang.get::<Humor>(), "Humor");
 //! ```
 //!
-//! Attributes can be attached to both the `enum` and the structures generated.
-//! The `Copy`, `Clone`, `Debug`, `Eq`, `PartialEq`, `Ord`, `PartialOrd`, and `Hash` traits are
-//! automatically derived for the types using the derive attribute.
 //! The structures generated are not exported out of its module by default.
 //! Use `pub` before the`enum` keyword to export it.
+//! Attributes can be attached to both the `enum` and the structures generated.
+//! The `Copy`, `Clone`, `Debug`, `Eq`, `PartialEq`, `Ord`, `PartialOrd`, and `Hash` traits are
+//! automatically derived for the types using the derive attribute. At the moment, the macro
+//! can only be used once per module, so if you need to define multiple structures you should
+//! put them in separate submodules.
 
 #![no_std]
 #![doc(html_root_url = "https://docs.rs/reword/3.0.1")]
@@ -61,7 +63,7 @@ macro_rules! reword {
             )*
         }
     ) => {
-        /// Trait used for constant value lookup.
+        #[doc = "Trait used for constant value lookup."]
         #[doc(hidden)]
         $pub trait Word {
             $($(#[$name_meta])* $(#[allow(non_upper_case_globals)] const $name: $T;)+)+
@@ -74,7 +76,7 @@ macro_rules! reword {
         }
 
         impl $enum {
-            /// Returns the value of `W`.
+            #[doc = "Returns the value of `W`."]
             #[inline]
             $pub fn get<W: Word + ?Sized>(self) -> $T {
                 match self {
